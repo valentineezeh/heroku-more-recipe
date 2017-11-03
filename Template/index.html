@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- CSS LINKS -->
+            <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <!--<link rel="stylesheet" href="css/style.css">-->
+        <link rel="stylesheet" href="css/style1.css">
+        <link rel="stylesheet" href="css/user.css">
+        <title>More-Recipes</title>
+    </head>
+
+    <body id="home">
+
+        <!-- NAVIGATION SECTION -->
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+            <div class="container">
+                <a href="index.html" class="navbar-brand"><h1 id="logo">More-Recipes</h1></a>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link active">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="add-recipe.html" class="nav-link">Add Recipe</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="my-recipe.html" class="nav-link">My Recipes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="my-favorite.html" class="nav-link">Favorite</a>
+                        </li>
+                        <li class="nav-item">
+                            <!-- <a href="profile.html" class="nav-link">Profile</a> -->
+                            <div class="btn-group open">
+                                <i class="fa fa-user-circle fa-2x pull-right" data-toggle="dropdown" aria-hidden="true"></i>
+                                <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+                                  <li class="divider"></li>
+                                  <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                                </ul>
+                              </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- HOME SECTION -->
+        <header id="header">
+
+        </header>
+
+        <!-- BREADCRUMB -->
+        <div class="container">
+            <nav class="breadcrumb">
+                <a class="breadcrumb-item" href="index.html">Home</a>
+                <span class="breadcrumb-item active">Recipe Box</span>
+            </nav>
+        </div>
+<!--Main container-->
+<div class="container">
+    <div class="row">
+  <!--<div class="col-lg-1 col-md-12 mb-4"></div>-->
+  <div class="col-lg-8 col-md-12 mb-4">
+    <!--Carousel Wrapper-->
+      <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
+          <!--Indicators-->
+          <ol class="carousel-indicators">
+              <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
+              <li data-target="#carousel-example-2" data-slide-to="1"></li>
+              <li data-target="#carousel-example-2" data-slide-to="2"></li>
+          </ol>
+          <!--/.Indicators-->
+          <!--Slides-->
+          <div class="carousel-inner" role="listbox">
+              <div class="carousel-item active">
+                  <div class="view hm-black-slight">
+                      <img class="d-block w-100" src="./img/bio3.jpg" alt="First slide" style="width:100%; height:360px;">
+                      <div class="mask"></div>
+                  </div>
+                  <div class="carousel-caption">
+                      <h3 class="h3-responsive">Traditional french breakfast</h3>
+                      <p>Let your tast buds feel the taste</p>
+                  </div>
+              </div>
+              <div class="carousel-item">
+                  <!--Mask color-->
+                  <div class="view hm-black-slight">
+                      <img class="d-block w-100" src="./img/bio1.jpg" alt="Second slide" style="width:100%; height:360px;">
+                      <div class="mask"></div>
+                  </div>
+                  <div class="carousel-caption">
+                      <h3 class="h3-responsive">Grill Whole Chicken</h3>
+                      <p>Finger licking goodness</p>
+                  </div>
+              </div>
+              <div class="carousel-item">
+                  <!--Mask color-->
+                  <div class="view hm-black-slight">
+                      <img class="d-block w-100" src="./img/bio2.jpg" alt="Third slide" style="width:100%; height:360px;">
+                      <div class="mask"></div>
+                  </div>
+                  <div class="carousel-caption">
+                      <h3 class="h3-responsive">Intercontinental Cusine</h3>
+                      <p>Your one stop recipe library</p>
+                  </div>
+              </div>
+          </div>
+          <!--/.Slides-->
+          <!--Controls-->
+          <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+          </a>
+          <!--/.Controls-->
+      </div>
+      <!--/.Carousel Wrapper-->
+  
+  </div>
+  <div class="col-lg-4 col-md-12 mb-4">
+  
+        <!-- TOP RECIPE -->
+        <ul class="list-group mb-3">
+            <li class="list-group-item active text-center"><h5>Top 3 Favorite Recipes</h5></li>
+            <div class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"><a href="#" class="mb-1"><strong>Egusi Recipe</strong></a></h5>
+                    <small class="text-muted">5 days ago</small>
+                </div>
+                <p class="mb-1">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem, maxime!</p>
+            </div>
+            <div class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"><a href="#"><strong>Edikaikong Recipe</strong></a></h5>
+                    <small class="text-muted">6 days ago</small>
+                </div>
+                <p class="mb-1">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem, maxime!</p>
+            </div>
+            <div class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"><a href="#"><strong>Bitter Leaf Soup Recipe</strong></a></h5>
+                    <small class="text-muted">4 days ago</small>
+                </div>
+                <p class="mb-1">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem, maxime!</p>
+            </div>
+        </ul>
+    </div>
+  
+  </div>
+    </div>
+  </div>
+  
+  <div class="container">
+      <!--Grid row-->
+      <hr class="my-2">
+      <div class="row">
+  
+        <div class="col-lg-3 col-md-12 mb-4">
+  
+            <!--Card-->
+            <div class="card">
+  
+                <!--Card image-->
+                <div class="view overlay hm-white-slight">
+                    <img src="./img/atama.jpeg" class="img-fluid" alt="" style="width:100%;height:200px;">
+                    <a href="#">
+                        <div class="mask"></div>
+                    </a>
+                </div>
+  
+                <!--Card content-->
+                <div class="card-body">
+                    <!--Title-->
+                    <h4 class="card-title">Atama Soup Recipe</h4>
+                    <!--Text-->
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="fa fa-thumbs-o-up"><span class="badge badge-info" title="Upvotes">12</span></a>
+                    <a href="#" class="fa fa-thumbs-o-down"><span class="badge badge-info" title="Downvotes">4</span></a>
+  
+  
+  
+                    <!--Trash Button-->
+                <!--<a type="button" class="btn btn-default btn-small btn-trash"><i class="fa fa-trash"></i></a>-->
+                <!--Favorite Button-->
+  
+  
+                </div>
+  
+            </div>
+            <!--/.Card-->
+  
+        </div>
+        <!--Grid column-->
+  
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4" >
+  
+            <!--Card-->
+            <div class="card">
+  
+                <!--Card image-->
+                <div class="view overlay hm-white-slight">
+                    <img src="./img/banga-soup.jpg" class="img-fluid" alt="" style="width:100%;height:200px;">
+                    <a href="#">
+                        <div class="mask"></div>
+                    </a>
+                </div>
+  
+                <!--Card content-->
+                <div class="card-body">
+                    <!--Title-->
+                    <h4 class="card-title">Banga Soup Recipe</h4>
+                    <!--Text-->
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="fa fa-thumbs-o-up"><span class="badge badge-info" title="Upvotes">12</span></a>
+                    <a href="#" class="fa fa-thumbs-o-down"><span class="badge badge-info" title="Downvotes">4</span></a>
+                    <!--Trash Button-->
+                <!--<a type="button" class="btn btn-default btn-small btn-trash"><i class="fa fa-trash"></i></a>-->
+                <!--Favorite Button-->
+                <!--<a type="button" class="btn btn-default btn-sm btn-favorite"><i class="fa fa-star"></i></a>-->
+  
+  
+            </div>
+                </div>
+  
+            </div>
+            <!--/.Card-->
+            <div class="col-lg-3 col-md-6 mb-4">
+  
+                <!--Card-->
+                <div class="card">
+  
+                    <!--Card image-->
+                    <div class="view overlay hm-white-slight">
+                        <img src="./img/egusi.jpg" class="img-fluid" alt="" style="width:100%;height:200px;">
+                        <a href="#">
+                            <div class="mask"></div>
+                        </a>
+                    </div>
+  
+                    <!--Card content-->
+                    <div class="card-body">
+                        <!--Title-->
+                        <h4 class="card-title">Egusi Soup</h4>
+                        <!--Text-->
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="fa fa-thumbs-o-up"><span class="badge badge-info" title="Upvotes">12</span></a>
+                        <a href="#" class="fa fa-thumbs-o-down"><span class="badge badge-info" title="Downvotes">4</span></a>
+                        <!--Trash Button-->
+                    <!--<a type="button" class="btn btn-default btn-small btn-trash"><i class="fa fa-trash"></i></a>-->
+                    <!--Favorite Button-->
+  
+  
+                    </div>
+  
+                </div>
+                <!--/.Card-->
+  
+            </div>
+          <!--Grid column-->
+          <div class="col-lg-3 col-md-6 mb-4" >
+  
+              <!--Card-->
+              <div class="card">
+  
+                  <!--Card image-->
+                  <div class="view overlay hm-white-slight">
+                      <img src="./img/edikaikong-beef.jpg" class="img-fluid" alt="" style="width:100%;height:200px;">
+                      <a href="#">
+                          <div class="mask"></div>
+                      </a>
+                  </div>
+  
+                  <!--Card content-->
+                  <div class="card-body">
+                      <!--Title-->
+                      <h4 class="card-title">EdikaiKong Soup</h4>
+                      <!--Text-->
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="fa fa-thumbs-o-up"><span class="badge badge-info" title="Upvotes">12</span></a>
+                      <a href="#" class="fa fa-thumbs-o-down"><span class="badge badge-info" title="Downvotes">4</span></a>
+                      <!--Trash Button-->
+                  <!--<a type="button" class="btn btn-default btn-small btn-trash"><i class="fa fa-trash"></i></a>-->
+                  <!--Favorite Button-->
+  
+  
+  
+              </div>
+                  </div>
+  
+              </div>
+      </div>
+  
+  <!--Grid row-->
+  <div class="row">
+  
+    <!--Grid column-->
+    <div class="col-lg-3 col-md-12 mb-4">
+  
+        <!--Card-->
+        <div class="card">
+  
+            <!--Card image-->
+            <div class="view overlay hm-white-slight">
+                <img src="./img/bitterleaf-okro-soup.jpg" class="img-fluid" alt="" style="width:100%;height:200px;">
+                <a href="#">
+                    <div class="mask"></div>
+                </a>
+            </div>
+  
+            <!--Card content-->
+            <div class="card-body">
+                <!--Title-->
+                <h4 class="card-title">Okro Soup Recipe</h4>
+                <!--Text-->
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="fa fa-thumbs-o-up"><span class="badge badge-info" title="Upvotes">12</span></a>
+                <a href="#" class="fa fa-thumbs-o-down"><span class="badge badge-info" title="Downvotes">4</span></a>
+                <!--Trash Button-->
+            <!--<a type="button" class="btn btn-default btn-small btn-trash"><i class="fa fa-trash"></i></a>-->
+            <!--Favorite Button-->
+  
+  
+            </div>
+  
+        </div>
+        <!--/.Card-->
+  
+    </div>
+    <!--Grid column-->
+  
+    <!--Grid column-->
+    <div class="col-lg-3 col-md-6 mb-4" >
+  
+        <!--Card-->
+        <div class="card">
+  
+            <!--Card image-->
+            <div class="view overlay hm-white-slight">
+                <img src="./img/ogbono.jpeg" class="img-fluid" alt="" style="width:100%;height:200px;">
+                <a href="#">
+                    <div class="mask"></div>
+                </a>
+            </div>
+  
+            <!--Card content-->
+            <div class="card-body">
+                <!--Title-->
+                <h4 class="card-title">Ogbono Soup</h4>
+                <!--Text-->
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="fa fa-thumbs-o-up"><span class="badge badge-info" title="Upvotes">12</span></a>
+                <a href="#" class="fa fa-thumbs-o-down"><span class="badge badge-info" title="Downvotes">4</span></a>
+                <!--Trash Button-->
+            <!--<a type="button" class="btn btn-default btn-small btn-trash"><i class="fa fa-trash"></i></a>-->
+            <!--Favorite Button-->
+  
+  
+  
+        </div>
+            </div>
+  
+        </div>
+        <!--/.Card-->
+        <div class="col-lg-3 col-md-6 mb-4">
+  
+            <!--Card-->
+            <div class="card">
+  
+                <!--Card image-->
+                <div class="view overlay hm-white-slight">
+                    <img src="./img/bitterleaf-soup.jpg" class="img-fluid" alt="" style="width:100%;height:200px;">
+                    <a href="#">
+                        <div class="mask"></div>
+                    </a>
+                </div>
+  
+                <!--Card content-->
+                <div class="card-body">
+                    <!--Title-->
+                    <h4 class="card-title">Bitter Leaf Soup</h4>
+                    <!--Text-->
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="fa fa-thumbs-o-up"><span class="badge badge-info" title="Upvotes">12</span></a>
+                    <a href="#" class="fa fa-thumbs-o-down"><span class="badge badge-info" title="Downvotes">4</span></a>
+                    <!--Trash Button-->
+                <!--<a type="button" class="btn btn-default btn-small btn-trash"><i class="fa fa-trash"></i></a>-->
+                <!--Favorite Button-->
+  
+  
+                </div>
+  
+            </div>
+            <!--/.Card-->
+  
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4" >
+  
+            <!--Card-->
+            <div class="card">
+  
+                <!--Card image-->
+                <div class="view overlay hm-white-slight">
+                    <img src="./img/ofada rice stew.jpg" class="img-fluid" alt="" style="width:100%;height:200px;">
+                    <a href="#">
+                        <div class="mask"></div>
+                    </a>
+                </div>
+  
+                <!--Card content-->
+                <div class="card-body">
+                    <!--Title-->
+                    <h4 class="card-title">Ofada Rice</h4>
+                    <!--Text-->
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="fa fa-thumbs-o-up"><span class="badge badge-info" title="Upvotes">12</span></a>
+                    <a href="#" class="fa fa-thumbs-o-down"><span class="badge badge-info" title="Downvotes">4</span></a>
+                    <!--Trash Button-->
+                <!--<a type="button" class="btn btn-default btn-small btn-trash"><i class="fa fa-trash"></i></a>-->
+                <!--Favorite Button-->
+  
+  
+  
+            </div>
+                </div>
+  
+            </div>
+    </div>
+  
+  
+        
+            <!-- MAIN FOOTER -->
+            <footer id="main-footer" class="bg-dark">
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-center">
+                            <div class="py-4" style="color:white">
+                                <h1 class="h3">More-Recipes</h1>
+                                <p>Copyright &copy; 2017</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+            <!-- Recipe MODAL -->
+            <div class="modal fade text-dark" id="addRecipe">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary">
+                                <h5 class="modal-title" style="color:rgb(255, 255, 255)" id="contactModalTitle">
+                                    Add Recipe
+                                </h5>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="name">Recipe Title</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="messager">Recipe Description</label>
+                                        <textarea class="form-control" rows="6"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="imgFile">Upload Image</label>
+                                        <input type="file" class="form-control-file" id="imgFile" aria-describedby="fileHelp">
+                                        <small id="fileHelp" class="form-text text-muted">Please upload an example image of recipe for better reviews.</small>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-info btn-block">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXTERNAL SCRIPTS -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>
