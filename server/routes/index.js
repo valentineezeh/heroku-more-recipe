@@ -9,7 +9,7 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  res.status(200).send({ message: 'More-Recipes' });
+  res.status(200).json({ message: 'More-Recipes' });
 });
 
 /* All API Routes */
