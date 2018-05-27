@@ -4,7 +4,7 @@ import Users from '../controller/user';
 const router = express.Router();
 
 router.get('/', (req, res) => {
-	res.json({message : "users route"});
+  res.json({ message: 'users route' });
 });
 
 router.get('/:id/profile', Users.profile);

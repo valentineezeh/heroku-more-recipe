@@ -1,6 +1,9 @@
 import db from '../models';
 
 const recipeListings = db.Recipes;
+const Favorites = db.Favorites;
+const Reviews = db.Reviews;
+const Votes = db.votes;
 
 /**
    * reviewRecipe
@@ -13,8 +16,25 @@ const recipeListings = db.Recipes;
 
 const retrieveRecipes = (req, res) => recipeListings
   .all()
-  .then(recipes => res.status(200).send(recipes))
-  .catch(err => res.status(400).send(err));
+  .then(recipes => res.status(200).send({
+    recipes: recipes
+  }))
+  .catch((error) => {
+    return console.log(error);
+    res.status(400).json(error);
+  });
+
+const getUserRecipes = (req, res) => {
+  recipeListings.findAll({
+    where: {
+      userId: req.decoded.id
+    }
+  }).then( recipes => {
+    res.status(200).send(recipes)
+  }).catch( error => {
+    res.status(400).send( error.message )
+  })
+}
 
 /**
    * createRecipe
@@ -26,21 +46,30 @@ const retrieveRecipes = (req, res) => recipeListings
    */
 
 const createRecipe = (req, res) => {
-  if (!req.body.title || req.body.title.trim().length === 0) {
+  if (req.body.title == ''){
     return res.status(400).json({
-      Message: 'Title Field should not be Empty',
-    });
-  } else if (!req.body.description || req.body.description.trim().length === 0) {
+      errors: { form: "Title Field should not be empty."}
+    })
+  }
+  if (req.body.description == ''){
     return res.status(400).json({
-      Message: 'Description Field should not be Empty',
-    });
+      errors: { form: "description Field should not be empty."}
+    })
+  }
+  if (req.body.imageUrl == ''){
+    return res.status(400).json({
+      errors: { form: "Image Field should not be empty."}
+    })
   }
   recipeListings.create({
-    userId: req.decoded.userId,
+    userId: req.decoded.id,
     title: req.body.title,
+    imageUrl: req.body.imageUrl,
     description: req.body.description
-  }).then(recipe => res.status(201).json({ recipe }))
-    .catch(err => res.status(400).send(err.message));
+  }).then(recipe => res.status(201).send({ recipe }))
+    .catch(error => {
+      console.log(error.message)
+      res.status(400).send(error.message)});
 };
 
 /**
@@ -53,17 +82,27 @@ const createRecipe = (req, res) => {
    */
 
 const deleteRecipe = (req, res) => recipeListings
-  .findById(req.params.recipeID)
+  .findOne({
+    where: {
+      userId: req.decoded.id,
+      id: req.params.id
+  }
+  })
   .then((recipe) => {
+    if(req.decoded.id != recipe.userId){
+      return res.status(400).send({
+          error: { form: 'You do not have the privilege to delete this Recipe'},
+      });
+  }
     recipe
       .destroy()
       .then(res.status(200).send({
         message: 'Recipe successfully deleted!'
       }))
-      .catch(err => res.status(400).send(err));
+      .catch(error => res.status(400).send(error.message));
   })
   .catch(() => res.status(404).send({
-    message: 'Record Not Found!'
+    error: { form : 'Record Not Found!'}
   }));
 
 /**
@@ -76,28 +115,34 @@ const deleteRecipe = (req, res) => recipeListings
    */
 
 const updateRecipe = (req, res) => {
-  const updateRecord = {};
-  console.log(req.decoded.userId);
-  console.log(req.params.recipeID);
+  //const updateRecord = {};
   recipeListings.findOne({
     where: {
-      id: req.params.recipeID,
-      userId: req.decoded.userId,
+      id: req.params.id,
+       userId: req.decoded.id,
     }
   }).then((recipe) => {
-    if (req.body.title) {
-      updateRecord.title = req.body.title;
-    } else if (req.body.description) {
-      updateRecord.description = req.body.description;
+    if(!recipe){
+      return res.status(404).send({
+        error: { form : "Recipe does not Exist"}
+      })
     }
-    recipe.update(updateRecord)
-      .then(updatedRecipe => res.send({
+    recipe.update({
+      title: req.body.title,
+      description: req.body.description,
+      imageUrl: req.body.imageUrl
+    })
+      .then(updatedRecipe => {
+        //console.log(updatedRecipe)
+        res.status(200).send({
         updatedRecipe
-      }));
+      })});
   })
-    .catch((e) => res.status(401).send({
-      message: 'You do not have permission to modify this Recipe'
-    }));
+    .catch(( error ) => {
+      console.log(error.message)
+      res.status(401).send({
+      error: { form : 'You do not have permission to modify this Recipe'}
+    })});
 };
 
 /**
@@ -111,7 +156,14 @@ const updateRecipe = (req, res) => {
 
 const retrieveRecipe = (req, res) => {
   recipeListings
-    .findById(req.params.recipeID)
+    .findById(req.params.recipeId, {
+      include: [
+        {
+          model: Reviews,
+          as: 'reviews',
+        },
+      ],
+    })
     .then((recipe) => {
       if (recipe) {
         res.status(200).send({
@@ -134,5 +186,6 @@ export default {
   createRecipe,
   deleteRecipe,
   updateRecipe,
-  retrieveRecipe
+  retrieveRecipe,
+  getUserRecipes
 };

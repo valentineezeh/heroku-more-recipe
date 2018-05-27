@@ -6,7 +6,8 @@ export default (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV4,
       references: {
         model: 'User',
-        key: 'id'
+        key: 'id',
+        as: 'userId',
       }
     },
     recipeId: {
@@ -15,7 +16,8 @@ export default (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV4,
       references: {
         model: 'Recipes',
-        key: 'id'
+        key: 'id',
+        as: 'recipeId',
       }
     },
     category: {
@@ -26,11 +28,18 @@ export default (sequelize, DataTypes) => {
       }
     }
   });
-  // Favorites.associate = (models) => {
-  //   // associations can be defined here
-  //   Favorites.hasOne(models.Recipe, { foreignKey: 'recipeId', onDelete: 'SET NULL' });
-
-  // };
+  Favorites.associate = (models) => {
+    // associations can be defined here
+    Favorites.belongsTo(models.Recipes, {
+      foreignKey: 'recipeId',
+      onDelete: 'SET NULL',
+      as: 'favorites'
+    });
+    Favorites.belongsTo(models.User, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE'
+    });
+  };
   return Favorites;
 };
 

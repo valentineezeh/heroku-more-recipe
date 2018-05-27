@@ -12,13 +12,18 @@ module.exports = {
       allowNull: true,
       references: {
         model: 'Users',
-        key: 'id'
+        key: 'id',
+        as: 'userId'
       },
       onDelete: 'CASCADE',
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4
     },
     title: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    imageUrl: {
       type: Sequelize.STRING,
       allowNull: false
     },

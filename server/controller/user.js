@@ -1,17 +1,20 @@
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+import validator from 'validator';
 import db from '../models/';
 
 
-// dotenv.config();
+dotenv.config();
 
 
 const User = db.User;
 const Favorites = db.Favorites;
-const error = {};
+const Recipes = db.Recipe;
+const Reviews = db.Reviews;
+// const error = {};
 
-const secret = 'thelordismyhelperishallnotwant';
+const secret = process.env.SECRET
 
 /**
    * signUp
@@ -25,15 +28,32 @@ const secret = 'thelordismyhelperishallnotwant';
 const signUp = (req, res) => {
   if (req.body.password !== req.body.confirmPassword) {
     return res.status(400).json({
-      Message: 'Password Mismatch!',
+      errors: { form: "Mismatch Password! Please Try Again.."}
     });
   }
-  User
+  if(!validator.isEmail(req.body.email)){
+    return res.status(400).json({
+      errors: { form: "Invalid Email" }
+    })
+  }
+  User.findOne({
+    where: {
+      email: req.body.email
+    }
+  }).then((user) => {
+   // console.log(user)
+    if(user){
+      res.status(400).json({
+        errors: { form: "Email Already Exist"}
+      })
+    }  
+   else{
+      User
     .create({
-      fullName: req.body.fullname,
+      fullName: req.body.fullName,
       email: req.body.email,
       sex: req.body.sex,
-      userName: req.body.username,
+      userName: req.body.userName,
       password: req.body.password,
       confirmPassword: req.body.confirmPassword
     })
@@ -41,8 +61,15 @@ const signUp = (req, res) => {
       user
     }))
     .catch((error) => {
-      res.status(400).json(error.message); // {error, data: req.body}
+      console.log(error)
+      res.status(500).json(error.message); // {error, data: req.body}
     });
+    }
+  }).catch((error)=> {
+    console.log(error.message)
+    res.status(404).json(error.message)
+  })
+  
 };
 
 /**
@@ -55,37 +82,31 @@ const signUp = (req, res) => {
    */
 
 const signIn = (req, res) => {
-  if (!req.body.email || req.body.email.trim().length === 0) {
-    return res.status(400).json({
-      Message: 'Email Field should not be Empty',
-    });
-  } else if (!req.body.password) {
-    return res.status(400).json({
-      Message: 'Password Field should not be Empty',
-    });
-  }
+  const { identifier, password } = req.body;
   User.findOne({
     where: {
-      email: req.body.email,
+      email: identifier,
     },
   })
     .then((user) => {
-      if (!user) {
-        return res.status(404).send({ message: 'Invalid Username or password' });
-      }
-      bcrypt.compare(req.body.password, user.password, (err, response) => {
-        if (err) {
-          return res.status(500).send({ error: err.message });
-        }
+     if (user) {
+      if (bcrypt.compareSync(password, user.password)){
         const token = jwt.sign({
-          username: user.userName,
-          userId: user.id
-        }, secret, { expiresIn: '24h' });
-        return res.status(200).send({
-          message: `Welcome ${user.userName}`,
-          token
-        });
-      });
+          id: user.id,
+          userName: user.userName,
+        }, secret);
+        res.json({ token });
+      }else {
+        res.status(401).json({
+          errors: { form: "Incorrect Password"}
+        })
+      }
+     }else{
+       res.status(401).json({
+         errors: { form: "User does not exist. Please Type in the Correct Email address"}
+       })
+     }
+      
     })
     .catch(error => res.status(500).send({ error: `an error occurred: ${error.message}` }));
 };
@@ -98,6 +119,66 @@ const signIn = (req, res) => {
    * @param {Object} res response object
    * @returns {void|Object}
    */
+
+const getAllUsers = (req, res) => User.findAll({
+  include: [
+    {
+      model: Recipes,
+      as: 'recipesId',
+      include: [
+        {
+          model: Reviews,
+          as: 'reviews',
+        },
+        {
+          model: Favorites,
+          as: 'favorites',
+        }
+      ]
+    }
+  ]
+}).then((users) => {
+  const resObj = users.map(user => Object.assign(
+    {},
+    {
+      userId: user.id,
+      username: user.username,
+      recipes: user.Recipes.map(recipe => Object.assign(
+        {},
+        {
+          recipeId: recipe.id,
+          userId: recipe.userId,
+          recipeTitle: recipe.Title,
+          recipeDes: recipe.description,
+          reviews: recipe.Reviews.map(review => Object.assign(
+            {},
+            {
+              reviewId: review.id,
+              userId: review.userId,
+              recipeId: review.recipeId,
+              reviewTitle: review.title,
+              reviewReview: review.review,
+            },
+
+          )),
+          favorites: recipe.Favorites.map(favorite => Object.assign(
+            {},
+            {
+              favoriteId: favorite.id,
+              userId: favorite.userId,
+              favoriteCat: favorite.cartegory
+            }
+          ))
+        }
+      ))
+    }
+  ));
+  return res.status(200).send({ resObj });
+}).catch((error) => {
+  return console.log(error);
+  res.status(404).send(error);
+});
+
 
 const addFavorites = (req, res) => {
   Favorites
@@ -155,4 +236,5 @@ export default {
   signIn,
   addFavorites,
   retrieveFavorites,
+  getAllUsers,
 };

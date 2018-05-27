@@ -18,5 +18,21 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN
     },
   });
+  votes.associate = (models) => {
+    // associations can be defined here
+    votes.belongsTo(models.Recipes, {
+      foreignKey: 'recipeId',
+      onDelete: 'SET NULL',
+      as: 'votes'
+    });
+  };
+  votes.associate = (models) => {
+    // associations can be defined here
+    votes.belongsTo(models.User, {
+      foreignKey: 'userId',
+      onDelete: 'SET NULL',
+      as: 'votes'
+    });
+  };
   return votes;
 };

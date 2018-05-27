@@ -6,6 +6,7 @@
 */
 import bcrypt from 'bcrypt';
 
+
 export default (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: {
@@ -48,16 +49,17 @@ export default (sequelize, DataTypes) => {
     },
   }, {
     hooks: {
-    // beforeCreate: (newUser) => {
-    //   newUser.password = bcrypt.hashSync(newUser.password, bcrypt.genSaltSync(8));
-    //   newUser.confirmPassword = bcrypt.hashSync(newUser.confirmPassword, bcrypt.genSaltSync(8));
-    // },
+      beforeCreate: (newUser) => {
+        newUser.password = bcrypt.hashSync(newUser.password, bcrypt.genSaltSync(8));
+        newUser.confirmPassword = bcrypt.hashSync(newUser.confirmPassword, bcrypt.genSaltSync(8));
+      },
       afterUpdate: (newUser) => {
         newUser.password = bcrypt.hashSync(newUser.password, bcrypt.genSaltSync(8));
         newUser.confirmPassword = bcrypt.hashSync(newUser.confirmPassword, bcrypt.genSaltSync(8));
       }
     }
   });
+  
   User.associate = (models) => {
     // associations can be defined here
     User.hasMany(models.Recipes, { foreignKey: 'userId' });

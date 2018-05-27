@@ -14,7 +14,8 @@ module.exports = {
       defaultValue: Sequelize.UUIDV4,
       references: {
         model: 'Users',
-        key: 'id'
+        key: 'id',
+        as: 'userId'
       },
       onDelete: 'CASCADE'
     },
@@ -23,7 +24,8 @@ module.exports = {
       type: Sequelize.INTEGER,
       references: {
         model: 'Recipes',
-        key: 'id'
+        key: 'id',
+        as: 'recipeId'
       },
       onDelete: 'CASCADE'
     },

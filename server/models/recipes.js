@@ -1,7 +1,6 @@
 
-
 export default (sequelize, DataTypes) => {
-  const Recipe = sequelize.define('Recipes', {
+  const Recipes = sequelize.define('Recipes', {
     id: {
       allowNull: true,
       autoIncrement: true,
@@ -12,12 +11,20 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       references: {
         model: 'User',
-        key: 'id'
+        key: 'id',
+        as: 'userId'
       },
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
     },
     title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: { msg: 'Empty strings not allowed' }
+      }
+    },
+    imageUrl: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -39,14 +46,30 @@ export default (sequelize, DataTypes) => {
       }
     },
   });
-  // Recipe.associate = (models) => {
-  //   // associations can be defined here
-  //   Recipe.hasMany(models.Favorites, { foreignKey: 'recipeId', onDelete: 'SET NULL' });
-
-  // };
-  Recipe.associate = (models) => {
+ 
+  Recipes.associate = (models) => {
     // associations can be defined here
-    Recipe.hasMany(models.votes, { foreignKey: 'recipeId', onDelete: 'SET NULL' });
+    Recipes.hasMany(models.Favorites, {
+      foreignKey: 'recipeId',
+      onDelete: 'SET NULL',
+      as: 'favorites'
+    });
   };
-  return Recipe;
+  Recipes.associate = (models) => {
+    // associations can be defined here
+    Recipes.hasMany(models.votes, {
+      foreignKey: 'recipeId',
+      onDelete: 'SET NULL',
+      as: 'votes'
+    });
+  };
+  Recipes.associate = (models) => {
+    // associations can be defined here
+    Recipes.hasMany(models.Reviews, {
+      foreignKey: 'recipeId',
+      onDelete: 'SET NULL',
+      as: 'reviews'
+    });
+  };
+  return Recipes;
 };

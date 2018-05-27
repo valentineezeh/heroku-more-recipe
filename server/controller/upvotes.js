@@ -19,14 +19,15 @@ const upvoteRecipe = (req, res) => {
       recipeId: req.params.recipeID
     },
     defaults: { vote: true }
-  }).spread((userVote) => {
+  }).then((userVote) => {
     res.status(201).send({
       Message: `${req.decoded.username} upvoted this recipe`,
       userVote
     });
-  }).catch(err => res.status(400).send({
-    message: err.parent.detail
-  }));
+  }).catch(error => {
+    console.log(error.message)
+    res.status(500).send({message: error.message})
+  });
   vote.count({
     where: {
       recipeId: req.params.recipeID,

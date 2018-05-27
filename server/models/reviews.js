@@ -8,7 +8,8 @@ export default (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV4,
       references: {
         model: 'User',
-        key: 'id'
+        key: 'id',
+        as: 'userId'
       }
     },
     recipeId: {
@@ -17,7 +18,8 @@ export default (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV4,
       references: {
         model: 'Recipe',
-        key: 'id'
+        key: 'id',
+        as: 'recipeId'
       }
     },
     fullName: {
@@ -44,7 +46,11 @@ export default (sequelize, DataTypes) => {
   });
   Reviews.associate = (models) => {
     // associations can be defined here
-    Reviews.belongsTo(models.Recipes, { foreignKey: 'recipeId', onDelete: 'SET NULL' });
+    Reviews.belongsTo(models.Recipes, {
+      foreignKey: 'recipeId',
+      onDelete: 'SET NULL',
+      as: 'reviews'
+    });
   };
   return Reviews;
 };
